@@ -56,6 +56,19 @@ header.nav{padding:28px 0;display:flex;justify-content:space-between;align-items
 .trace circle{fill:var(--bg);stroke:var(--accent);stroke-width:2}
 @keyframes flow{from{stroke-dashoffset:600}to{stroke-dashoffset:0}}
 
+.thumb[data-full]{cursor:zoom-in}
+.thumb[data-full]::after{content:"Click to enlarge";position:absolute;right:8px;bottom:8px;font-size:.75rem;padding:3px 8px;border-radius:3px;background:rgba(24,33,43,.8);color:#fff;opacity:0;transition:opacity .2s;pointer-events:none}
+.thumb[data-full]:hover::after,.thumb[data-full]:focus-visible::after{opacity:1}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,14,20,.9);display:none;flex-direction:column;padding:12px}
+.lb.open{display:flex}
+.lb-bar{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding-bottom:10px}
+.lb-bar a,.lb-bar button{color:#fff;border:1px solid rgba(255,255,255,.4);background:transparent;border-radius:4px;padding:7px 14px;font:inherit;font-size:.9rem;text-decoration:none;cursor:pointer}
+.lb-bar a:hover,.lb-bar button:hover{background:rgba(255,255,255,.15)}
+.lb-body{flex:1;min-height:0;display:grid;place-items:center}
+.lb-body img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.lb-body iframe{width:100%;height:100%;border:0;background:#fff;border-radius:4px}
+.lb-body p{color:#fff}
+
 /* sections */
 section{padding:56px 0 8px}
 h2{font-size:1.5rem;font-weight:600;letter-spacing:-.01em;display:flex;align-items:center;gap:16px;margin-bottom:28px}
@@ -144,8 +157,8 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
 
       <!-- PROFILE PHOTO: put your picture in the same folder and name it profile.jpg -->
       <div class="photo">
-        <img src="profile.jpeg" alt="Portrait of Muhammad Wahyu Aria Senna" onerror="this.remove()">
-        <span>Profile photo<br>(profile.jpeg)</span>
+        <img src="profile.jpg" alt="Portrait of Muhammad Wahyu Aria Senna" onerror="this.remove()">
+        <span>Profile photo<br>(profile.jpg)</span>
       </div>
     </div>
 
@@ -193,7 +206,7 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
       <div class="slider" tabindex="0" aria-label="Projects">
         <!-- Replace the text, image file name and link for each project -->
         <article class="card">
-          <div class="thumb"><img src="project1.jpg" alt="" onerror="this.remove()"><span>Project 1 image</span></div>
+          <div class="thumb" data-full="project1-full.jpg" tabindex="0" role="button" aria-label="Open project 1 full size"><img src="project1.jpg" alt="" onerror="this.remove()"><span>Project 1 image</span></div>
           <div class="body">
             <h3>Project title one</h3>
             <p>Short description of the problem, what you built, and the result.</p>
@@ -205,7 +218,7 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
           </div>
         </article>
         <article class="card">
-          <div class="thumb"><img src="project2.jpg" alt="" onerror="this.remove()"><span>Project 2 image</span></div>
+          <div class="thumb" data-full="project2-full.jpg" tabindex="0" role="button" aria-label="Open project 2 full size"><img src="project2.jpg" alt="" onerror="this.remove()"><span>Project 2 image</span></div>
           <div class="body">
             <h3>Project title two</h3>
             <p>Short description of the problem, what you built, and the result.</p>
@@ -217,7 +230,7 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
           </div>
         </article>
         <article class="card">
-          <div class="thumb"><img src="project3.jpg" alt="" onerror="this.remove()"><span>Project 3 image</span></div>
+          <div class="thumb" data-full="project3-full.jpg" tabindex="0" role="button" aria-label="Open project 3 full size"><img src="project3.jpg" alt="" onerror="this.remove()"><span>Project 3 image</span></div>
           <div class="body">
             <h3>Project title three</h3>
             <p>Short description of the problem, what you built, and the result.</p>
@@ -239,23 +252,23 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
       <div class="slider" tabindex="0" aria-label="Certificates">
         <!-- Replace image file names (cert1.jpg ... cert5.jpg) with your own scans -->
         <article class="card">
-          <div class="thumb"><img src="cert1.jpg" alt="" onerror="this.remove()"><span>Certificate 1 image</span></div>
+          <div class="thumb" data-full="cert1.pdf" tabindex="0" role="button" aria-label="Open certificate 1 full size"><img src="cert1.jpg" alt="" onerror="this.remove()"><span>Certificate 1 image</span></div>
           <div class="body"><h3>BNSP Competency Certificate</h3><p>Operation of PLC-Based Electronic Equipment · 2026</p></div>
         </article>
         <article class="card">
-          <div class="thumb"><img src="cert2.jpg" alt="" onerror="this.remove()"><span>Certificate 2 image</span></div>
+          <div class="thumb" data-full="cert2.pdf" tabindex="0" role="button" aria-label="Open certificate 2 full size"><img src="cert2.jpg" alt="" onerror="this.remove()"><span>Certificate 2 image</span></div>
           <div class="body"><h3>Certificate title two</h3><p>Issuer · Year</p></div>
         </article>
         <article class="card">
-          <div class="thumb"><img src="cert3.jpg" alt="" onerror="this.remove()"><span>Certificate 3 image</span></div>
+          <div class="thumb" data-full="cert3.pdf" tabindex="0" role="button" aria-label="Open certificate 3 full size"><img src="cert3.jpg" alt="" onerror="this.remove()"><span>Certificate 3 image</span></div>
           <div class="body"><h3>Certificate title three</h3><p>Issuer · Year</p></div>
         </article>
         <article class="card">
-          <div class="thumb"><img src="cert4.jpg" alt="" onerror="this.remove()"><span>Certificate 4 image</span></div>
+          <div class="thumb" data-full="cert4.pdf" tabindex="0" role="button" aria-label="Open certificate 4 full size"><img src="cert4.jpg" alt="" onerror="this.remove()"><span>Certificate 4 image</span></div>
           <div class="body"><h3>Certificate title four</h3><p>Issuer · Year</p></div>
         </article>
         <article class="card">
-          <div class="thumb"><img src="cert5.jpg" alt="" onerror="this.remove()"><span>Certificate 5 image</span></div>
+          <div class="thumb" data-full="cert5.pdf" tabindex="0" role="button" aria-label="Open certificate 5 full size"><img src="cert5.jpg" alt="" onerror="this.remove()"><span>Certificate 5 image</span></div>
           <div class="body"><h3>Certificate title five</h3><p>Issuer · Year</p></div>
         </article>
       </div>
@@ -301,6 +314,30 @@ document.querySelectorAll('.slider-wrap').forEach(function(w){
     });
   });
 });
+</script>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Full size preview">
+  <div class="lb-bar"><a id="lb-open" href="#" target="_blank" rel="noopener">Open in new tab</a><button type="button" id="lb-close">Close ✕</button></div>
+  <div class="lb-body" id="lb-body"></div>
+</div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'),body=document.getElementById('lb-body'),open=document.getElementById('lb-open');
+  function show(src){
+    body.innerHTML='';
+    var el;
+    if(/\.pdf($|\?)/i.test(src)){el=document.createElement('iframe');el.src=src;el.title='PDF preview';}
+    else{el=document.createElement('img');el.src=src;el.alt='';el.onerror=function(){body.innerHTML='<p>File not found: '+src+'</p>';};}
+    body.appendChild(el);open.href=src;lb.classList.add('open');document.body.style.overflow='hidden';
+  }
+  function hide(){lb.classList.remove('open');body.innerHTML='';document.body.style.overflow='';}
+  document.querySelectorAll('.thumb[data-full]').forEach(function(t){
+    t.addEventListener('click',function(){show(t.dataset.full);});
+    t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();show(t.dataset.full);}});
+  });
+  document.getElementById('lb-close').addEventListener('click',hide);
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target===body)hide();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')hide();});
+})();
 </script>
 </body>
 </html>
