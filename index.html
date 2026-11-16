@@ -115,16 +115,53 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .detail p{margin-top:8px;color:var(--muted)}
 
 
-footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+/* education & organizations */
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.chip{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:10px 14px 10px 10px;background:var(--surface);border:1px solid var(--line);border-radius:6px;transition:border-color .2s}
+.chip:hover{border-color:var(--accent)}
+.chip .c-ico{width:36px;height:36px}
+.chip.lead .c-ico{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip-txt{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.chip-txt b{font-weight:600;font-size:.95rem}
+.chip-txt small{color:var(--muted);font-size:.85rem}
+.chip-yr{font-size:.8rem;font-weight:500;padding:2px 9px;border-radius:3px;background:var(--accent-soft);color:var(--accent);white-space:nowrap}
+@media (max-width:420px){
+  .chip{grid-template-columns:auto 1fr}
+  .chip-yr{grid-column:2;justify-self:start}
+}
+
+/* contact */
+#contact{scroll-margin-top:24px}
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+#contact:target .contact{animation:land 1.4s ease-out}
+@keyframes land{from{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}to{border-color:var(--line);box-shadow:0 0 0 0 transparent}}
+.contact-list{list-style:none}
+.contact-list li{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.contact-list li:last-child{border-bottom:0}
+.c-link{flex:1;min-width:0;display:flex;align-items:center;gap:14px;padding:18px 8px 18px 22px;text-decoration:none;transition:background .2s}
+a.c-link:hover{background:var(--accent-soft)}
+a.c-link:hover .c-ico{background:var(--accent);color:#fff;border-color:var(--accent)}
+.c-ico{flex:none;width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--line);border-radius:6px;color:var(--accent);transition:background .2s,color .2s,border-color .2s}
+.c-ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.c-txt{min-width:0;display:flex;flex-direction:column;line-height:1.35}
+.c-txt small{color:var(--muted);font-size:.82rem}
+.c-txt b{font-weight:500;overflow-wrap:anywhere}
+.copy{flex:none;margin-right:16px;padding:6px 12px;border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--muted);font:inherit;font-size:.85rem;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+.copy.done{border-color:var(--accent);background:var(--accent);color:#fff}
+
+footer{margin-top:56px;padding:28px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
 @media (max-width:720px){
   .wrap{padding:0 20px 0 44px}
   .rail{left:16px}
   .hero{grid-template-columns:1fr;gap:28px}
   .photo{order:-1;width:150px;height:180px}
+    .c-link{padding:16px 6px 16px 16px}
+  .copy{margin-right:12px}
 }
 @media (prefers-reduced-motion:reduce){
-  .rail::after,.trace .flow{animation:none}
+  .rail::after,.trace .flow,#contact:target .contact{animation:none}
   html{scroll-behavior:auto}
 }
 </style>
@@ -282,7 +319,7 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
     <section id="skills">
       <h2>Skills</h2>
       <div class="skills">
-        <div class="skill-box"><h3>Automation &amp; Robotics</h3><ul><li>PLC Programming</li><li>Ladder Diagram</li><li>Wiring Diagramt</li><li>Pneumatic and Hydraulics</li><li>Pneumatic and Hydraulics</li><li>IoT Projects</ul><li>Pneumatic and Hydraulics</li><li>(C++) Programming</li></div>
+        <div class="skill-box"><h3>Automation &amp; Robotics</h3><ul><li>PLC Programming</li><li>Ladder Diagram</li><li>Wiring Diagram</li><li>Pneumatic and Hydraulics</li><li>IoT Projects</li><li>(C++) Programming</li></ul></div>
         <div class="skill-box"><h3>Office</h3><ul><li>Microsoft Word</li><li>Microsoft Excel</li><li>Microsoft PowerPoint</li></ul></div>
         <div class="skill-box"><h3>CAD / Design</h3><ul><li>Autodesk Inventor</li><li>Basic 3D Modeling</li><li>Drafting</li></ul></div>
         <div class="skill-box"><h3>Soft Skills</h3><ul><li>Adaptive</li><li>Logical Thinking</li><li>Time Management</li><li>Communicative</li></ul></div>
@@ -292,20 +329,78 @@ footer{margin-top:72px;padding:28px 0 40px;border-top:1px solid var(--line);colo
 
     <section id="education">
       <h2>Education</h2>
-      <div class="entry"><div><strong>B.Eng. in Mechatronics Engineering</strong><span>Universitas Trunojoyo Madura</span></div><div class="yr">2021 – 2026</div></div>
-      <div class="entry"><div><strong>Computer and Network Engineering</strong><span>SMK N 1 Brondong</span></div><div class="yr">2018 – 2021</div></div>
+      <div class="chip-grid">
+        <div class="chip lead">
+          <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></span>
+          <div class="chip-txt"><b>B.Eng. in Mechatronics Engineering</b><small>Universitas Trunojoyo Madura · GPA 3.35 / 4.00</small></div>
+          <span class="chip-yr">2021 – 2026</span>
+        </div>
+        <div class="chip">
+          <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+          <div class="chip-txt"><b>Computer and Network Engineering</b><small>SMK N 1 Brondong</small></div>
+          <span class="chip-yr">2018 – 2021</span>
+        </div>
+      </div>
     </section>
 
     <section id="organizations">
       <h2>Organizations</h2>
-      <div class="entry"><div><strong>Vice Chairperson</strong><span>IKAMALA UTM</span></div><div class="yr">2024 – 2025</div></div>
-      <div class="entry"><div><strong>Member, Interest &amp; Talent Division</strong><span>IKAMALA UTM</span></div><div class="yr">2023 – 2024</div></div>
-      <div class="entry"><div><strong>Member, Entrepreneurship Division</strong><span>HIMAMEKA</span></div><div class="yr">2023 – 2024</div></div>
+      <div class="chip-grid">
+        <div class="chip lead">
+          <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5"/></svg></span>
+          <div class="chip-txt"><b>Vice Chairperson</b><small>IKAMALA UTM</small></div>
+          <span class="chip-yr">2024 – 2025</span>
+        </div>
+        <div class="chip">
+          <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5.5a3 3 0 010 5.5M21 20c0-2.6-1.6-4.8-4-5.6"/></svg></span>
+          <div class="chip-txt"><b>Member, Interest &amp; Talent Division</b><small>IKAMALA UTM</small></div>
+          <span class="chip-yr">2023 – 2024</span>
+        </div>
+        <div class="chip">
+          <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg></span>
+          <div class="chip-txt"><b>Member, Entrepreneurship Division</b><small>HIMAMEKA</small></div>
+          <span class="chip-yr">2023 – 2024</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact">
+        <ul class="contact-list">
+          <li>
+            <a class="c-link" href="mailto:muhammadwhyu21@gmail.com">
+              <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+              <span class="c-txt"><small>Email</small><b>muhammadwhyu21@gmail.com</b></span>
+            </a>
+            <button type="button" class="copy" data-copy="muhammadwhyu21@gmail.com" aria-label="Copy email address">Copy</button>
+          </li>
+          <li>
+            <a class="c-link" href="https://wa.me/6282175105019" target="_blank" rel="noopener">
+              <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span>
+              <span class="c-txt"><small>WhatsApp / Phone</small><b>+62 8217-5105-019</b></span>
+            </a>
+            <button type="button" class="copy" data-copy="+6282175105019" aria-label="Copy phone number">Copy</button>
+          </li>
+          <li>
+            <a class="c-link" href="https://www.linkedin.com/in/muhammad-wahyu-aria-senna-89247344b/" target="_blank" rel="noopener">
+              <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 11v5M8 8v.01M12 16v-5M12 13a2.5 2.5 0 015 0v3"/></svg></span>
+              <span class="c-txt"><small>LinkedIn</small><b>Muhammad Wahyu Aria Senna</b></span>
+            </a>
+            <button type="button" class="copy" data-copy="https://www.linkedin.com/in/muhammad-wahyu-aria-senna-89247344b/" aria-label="Copy LinkedIn link">Copy</button>
+          </li>
+          <li>
+            <a class="c-link" href="https://www.google.com/maps/search/?api=1&amp;query=Lamongan%2C+Jawa+Timur" target="_blank" rel="noopener">
+              <span class="c-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+              <span class="c-txt"><small>Location</small><b>Lamongan, East Java, Indonesia</b></span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
 
-  <footer id="contact">
-    <span>muhammadwhyu21@gmail.com · +62-8217-5105-019 · Lamongan, East Java, Indonesia</span>
+  <footer>
     <span>© <script>document.write(new Date().getFullYear())</script> Muhammad Wahyu Aria Senna</span>
   </footer>
 </div>
@@ -316,6 +411,26 @@ document.querySelectorAll('.slider-wrap').forEach(function(w){
     b.addEventListener('click',function(){
       sl.scrollBy({left:b.dataset.dir*(sl.querySelector('.card').offsetWidth+20),behavior:'smooth'});
     });
+  });
+});
+</script>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var text=b.dataset.copy;
+    function ok(){
+      var old=b.textContent;
+      b.textContent='Copied';b.classList.add('done');
+      setTimeout(function(){b.textContent=old;b.classList.remove('done');},1600);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok,function(){});
+    }else{
+      var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';
+      document.body.appendChild(t);t.select();
+      try{document.execCommand('copy');ok();}catch(e){}
+      document.body.removeChild(t);
+    }
   });
 });
 </script>
