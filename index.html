@@ -32,13 +32,14 @@ header.nav{padding:28px 0;display:flex;justify-content:space-between;align-items
 .nav strong{font-weight:600}
 .nav nav{display:flex;gap:20px;font-size:.95rem}
 .nav nav a{text-decoration:none;color:var(--muted)}
-.nav nav a:hover{color:var(--accent)}
+.nav nav a:hover,.nav nav a.active{color:var(--accent)}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1fr 200px;gap:40px;align-items:center;padding:48px 0 24px}
+.hero{display:grid;grid-template-columns:1fr 200px;gap:40px;align-items:start;padding:48px 0 24px}
 .hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.12;font-weight:600;letter-spacing:-.02em}
 .hero .role{margin-top:14px;color:var(--accent);font-weight:500}
-.hero p.about{margin-top:18px;color:var(--muted);max-width:56ch}
+.hero .about{margin-top:14px;color:var(--muted);max-width:60ch}
+.hero .role+.about{margin-top:18px}
 .links{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
 .btn{display:inline-block;padding:10px 18px;border:1px solid var(--ink);border-radius:4px;text-decoration:none;font-weight:500;font-size:.95rem;transition:background .2s,color .2s}
 .btn:hover{background:var(--ink);color:var(--bg)}
@@ -56,18 +57,6 @@ header.nav{padding:28px 0;display:flex;justify-content:space-between;align-items
 .trace circle{fill:var(--bg);stroke:var(--accent);stroke-width:2}
 @keyframes flow{from{stroke-dashoffset:600}to{stroke-dashoffset:0}}
 
-.thumb[data-full]{cursor:zoom-in}
-.thumb[data-full]::after{content:"Click to enlarge";position:absolute;right:8px;bottom:8px;font-size:.75rem;padding:3px 8px;border-radius:3px;background:rgba(24,33,43,.8);color:#fff;opacity:0;transition:opacity .2s;pointer-events:none}
-.thumb[data-full]:hover::after,.thumb[data-full]:focus-visible::after{opacity:1}
-.lb{position:fixed;inset:0;z-index:100;background:rgba(10,14,20,.9);display:none;flex-direction:column;padding:12px}
-.lb.open{display:flex}
-.lb-bar{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding-bottom:10px}
-.lb-bar a,.lb-bar button{color:#fff;border:1px solid rgba(255,255,255,.4);background:transparent;border-radius:4px;padding:7px 14px;font:inherit;font-size:.9rem;text-decoration:none;cursor:pointer}
-.lb-bar a:hover,.lb-bar button:hover{background:rgba(255,255,255,.15)}
-.lb-body{flex:1;min-height:0;display:grid;place-items:center}
-.lb-body img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
-.lb-body iframe{width:100%;height:100%;border:0;background:#fff;border-radius:4px}
-.lb-body p{color:#fff}
 
 /* sections */
 section{padding:56px 0 8px}
@@ -81,22 +70,7 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .job ul{padding-left:18px;color:var(--muted)}
 .job li{margin-bottom:4px}
 
-.slider-wrap{position:relative}
-.slider{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:2px 2px 14px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
-.slider>.card{flex:0 0 min(300px,82%);scroll-snap-align:start}
-.slider-ctrl{display:flex;justify-content:flex-end;gap:8px;margin:-8px 0 12px}
-.slider-ctrl button{width:38px;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);font-size:1.1rem;cursor:pointer;transition:border-color .2s,color .2s}
-.slider-ctrl button:hover{border-color:var(--accent);color:var(--accent)}
-.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.skill-box{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
-.skill-box h3{font-size:1rem;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.skill-box ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
-.skill-box li{font-size:.85rem;padding:3px 10px;border-radius:3px;background:var(--accent-soft);color:var(--accent)}
-.entry{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line)}
-.entry:last-child{border-bottom:0}
-.entry strong{display:block;font-weight:600}
-.entry span{color:var(--muted);font-size:.92rem}
-.entry .yr{color:var(--muted);font-size:.92rem;white-space:nowrap}
+/* cards, sliders & project details */
 .card{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s}
 .card:hover{border-color:var(--accent)}
 .thumb{aspect-ratio:16/10;background:var(--accent-soft);display:grid;place-items:center;color:var(--muted);font-size:.85rem;position:relative;overflow:hidden}
@@ -113,10 +87,23 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
 .detail[open] summary::after{content:" \2212"}
 .detail summary:hover{text-decoration:underline}
 .detail p{margin-top:8px;color:var(--muted)}
+.slider-wrap{position:relative}
+.slider{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:2px 2px 14px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.slider>.card{flex:0 0 min(300px,82%);scroll-snap-align:start}
+.slider-ctrl{display:flex;justify-content:flex-end;gap:8px;margin:-8px 0 12px}
+.slider-ctrl button{width:38px;height:38px;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);font-size:1.1rem;cursor:pointer;transition:border-color .2s,color .2s}
+.slider-ctrl button:hover{border-color:var(--accent);color:var(--accent)}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px}
+.skill-box{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px}
+.skill-box h3{font-size:1rem;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.skill-box ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.skill-box li{font-size:.85rem;padding:3px 10px;border-radius:3px;background:var(--accent-soft);color:var(--accent)}
 
 
 /* education & organizations */
-.chip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}
+.chip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:10px}
 .chip{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:10px 14px 10px 10px;background:var(--surface);border:1px solid var(--line);border-radius:6px;transition:border-color .2s}
 .chip:hover{border-color:var(--accent)}
 .chip .c-ico{width:36px;height:36px}
@@ -129,6 +116,20 @@ h2::after{content:"";flex:1;height:1px;background:var(--line)}
   .chip{grid-template-columns:auto 1fr}
   .chip-yr{grid-column:2;justify-self:start}
 }
+
+/* lightbox (full-size image / PDF) */
+.thumb[data-full]{cursor:zoom-in}
+.thumb[data-full]::after{content:"Click to enlarge";position:absolute;right:8px;bottom:8px;font-size:.75rem;padding:3px 8px;border-radius:3px;background:rgba(24,33,43,.8);color:#fff;opacity:0;transition:opacity .2s;pointer-events:none}
+.thumb[data-full]:hover::after,.thumb[data-full]:focus-visible::after{opacity:1}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,14,20,.9);display:none;flex-direction:column;padding:12px}
+.lb.open{display:flex}
+.lb-bar{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding-bottom:10px}
+.lb-bar a,.lb-bar button{color:#fff;border:1px solid rgba(255,255,255,.4);background:transparent;border-radius:4px;padding:7px 14px;font:inherit;font-size:.9rem;text-decoration:none;cursor:pointer}
+.lb-bar a:hover,.lb-bar button:hover{background:rgba(255,255,255,.15)}
+.lb-body{flex:1;min-height:0;display:grid;place-items:center}
+.lb-body img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}
+.lb-body iframe{width:100%;height:100%;border:0;background:#fff;border-radius:4px}
+.lb-body p{color:#fff}
 
 /* contact */
 #contact{scroll-margin-top:24px}
@@ -152,12 +153,44 @@ a.c-link:hover .c-ico{background:var(--accent);color:#fff;border-color:var(--acc
 
 footer{margin-top:56px;padding:28px 0 40px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
+/* desktop layout */
+@media (min-width:1024px){
+  html{scroll-padding-top:76px}
+  .wrap{max-width:1160px;padding:0 56px 0 96px}
+  header.nav{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:18px 0}
+  .nav nav{gap:28px;font-size:1rem}
+  .hero{grid-template-columns:1fr 240px;gap:64px;align-items:center;padding:80px 0 36px}
+  .hero h1{font-size:3.6rem}
+  .hero .role{font-size:1.1rem}
+  .hero .about{font-size:1.05rem;max-width:62ch}
+  .photo{width:240px;height:300px}
+  .trace{height:72px}
+  section{padding:80px 0 8px}
+  h2{font-size:1.75rem;margin-bottom:36px}
+  .job{padding-left:28px;padding-bottom:32px}
+  .job h3{font-size:1.15rem}
+  .job ul{max-width:80ch}
+  .slider{gap:24px}
+  .slider>.card{flex:0 0 calc((100% - 48px) / 3)}
+  .slider-ctrl button{width:42px;height:42px}
+  .card .body{padding:20px}
+  .skills{grid-template-columns:repeat(3,1fr);gap:20px}
+  .skill-box{padding:22px}
+  .chip-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .chip{padding:14px 18px 14px 14px}
+  .contact-list{display:grid;grid-template-columns:1fr 1fr}
+  .contact-list li:nth-child(odd){border-right:1px solid var(--line)}
+  .contact-list li:nth-last-child(-n+2){border-bottom:0}
+  .lb{padding:24px 32px}
+  footer{margin-top:80px}
+}
+
 @media (max-width:720px){
   .wrap{padding:0 20px 0 44px}
   .rail{left:16px}
   .hero{grid-template-columns:1fr;gap:28px}
   .photo{order:-1;width:150px;height:180px}
-    .c-link{padding:16px 6px 16px 16px}
+  .c-link{padding:16px 6px 16px 16px}
   .copy{margin-right:12px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -171,11 +204,12 @@ footer{margin-top:56px;padding:28px 0 40px;border-top:1px solid var(--line);colo
 
 <div class="wrap">
   <header class="nav">
-    <strong>Welcome to My Portofolio</strong>
+    <strong>Welcome to My Portfolio</strong>
     <nav aria-label="Main">
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
-      <a href="#certificates">Certificates</a>
+      <a href="#certificates">Achievements</a>
+      <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -185,13 +219,10 @@ footer{margin-top:56px;padding:28px 0 40px;border-top:1px solid var(--line);colo
       <div>
         <h1>Muhammad Wahyu Aria Senna</h1>
         <p class="role">Mechatronics Engineer · PLC &amp; IoT · Electronics Technician</p>
-        <p class="about">I grew up in Lamongan, East Java. In vocational school I studied computer and network engineering, and later I chose mechatronics at Universitas Trunojoyo Madura because I wanted to work with both hardware and programming.
-
-During my studies and internships, I got to try different things: helping with machine maintenance at a sugar mill, then repairing electronic devices from several brands and writing repair reports. Nothing too fancy, but it taught me to be patient, follow procedures, and ask when I’m unsure.
-
-I also joined a few campus organizations, and that helped me get better at working with other people.
-
-Right now I’m looking for a job where I can put my skills to use and keep learning. I enjoy picking up new things, I’m not afraid to ask questions, and I’m happy to work on my own or with a team. If you think I could be a good fit, feel free to get in touch.</p>
+        <p class="about">I grew up in Lamongan, East Java. In vocational school I studied computer and network engineering, and later I chose mechatronics at Universitas Trunojoyo Madura because I wanted to work with both hardware and programming.</p>
+        <p class="about">During my studies and internships, I got to try different things: helping with machine maintenance at a sugar mill, then repairing electronic devices from several brands and writing repair reports. Nothing too fancy, but it taught me to be patient, follow procedures, and ask when I’m unsure.</p>
+        <p class="about">I also joined a few campus organizations, and that helped me get better at working with other people.</p>
+        <p class="about">Right now I’m looking for a job where I can put my skills to use and keep learning. I enjoy picking up new things, I’m not afraid to ask questions, and I’m happy to work on my own or with a team. If you think I could be a good fit, feel free to get in touch.</p>
         <div class="links">
           <a class="btn fill" href="mailto:muhammadwhyu21@gmail.com">Email me</a>
           <a class="btn" href="#projects">View projects</a>
@@ -207,7 +238,7 @@ Right now I’m looking for a job where I can put my skills to use and keep lear
 
     <!-- animated signal line -->
     <svg class="trace" viewBox="0 0 800 60" preserveAspectRatio="none" aria-hidden="true">
-      <path id="t" d="M0 30 H200 L230 10 H420 L450 50 H620 L650 30 H800"/>
+      <path d="M0 30 H200 L230 10 H420 L450 50 H620 L650 30 H800"/>
       <path class="flow" d="M0 30 H200 L230 10 H420 L450 50 H620 L650 30 H800"/>
       <circle cx="230" cy="10" r="4"/><circle cx="450" cy="50" r="4"/><circle cx="650" cy="30" r="4"/>
     </svg>
@@ -233,7 +264,7 @@ Right now I’m looking for a job where I can put my skills to use and keep lear
         </ul>
       </div>
       <div class="job">
-        <h3>Instrument Intern · PG Lestari - PT. Sinergi Gula Nusantara</h3>
+        <h3>Instrument Intern · PG Lestari (PT. Sinergi Gula Nusantara)</h3>
         <div class="meta">January 2023 – February 2023</div>
         <ul>
           <li>Assisted with maintenance of tools and machines used in the sugar-making process.</li>
@@ -245,78 +276,79 @@ Right now I’m looking for a job where I can put my skills to use and keep lear
     <section id="projects">
       <h2>Projects</h2>
       <div class="slider-wrap">
-      <div class="slider-ctrl"><button type="button" data-dir="-1" aria-label="Previous">&#8592;</button><button type="button" data-dir="1" aria-label="Next">&#8594;</button></div>
-      <div class="slider" tabindex="0" aria-label="Projects">
-        <!-- Replace the text, image file name and link for each project -->
-        <article class="card">
-          <div class="thumb" data-full="project1-full.jpeg" tabindex="0" role="button" aria-label="Open project 1 full size"><img src="project1.jpg" alt="" onerror="this.remove()"><span>Project 1 image</span></div>
-          <div class="body">
-            <h3>Window Cleaning Robot</h3>
-            <p>A window cleaning robot that sticks to glass with vacuum suction and uses Coverage Path Planning to clean an entire surface automatically.</p>
-            <div class="tags"><span>IoT</span><span>Robotics</span><span>Final College Project</span></div>
-            <details class="detail">
-              <summary>Detail</summary>
-              <p>or my final year project, I wanted to solve a problem that is easy to overlook: cleaning windows on tall buildings is risky for the people who do it. So I built a robot that does the job for them. It sticks to the glass using vacuum suction and drives with a differential drive system on sponge crawler wheels, so it doesn’t slip. To make sure no part of the window gets missed, I used a grid-based Coverage Path Planning algorithm with a boustrophedon (zig-zag) pattern. Time-of-Flight (ToF) sensors help the robot sense the edges of the window and decide when to turn, an MPU6050 keeps track of its orientation, and wheel encoders measure how far it has moved. Everything is controlled by an Arduino Mega. I calibrated and tested each sensor and the suction mechanism again and again, and that process taught me how much patience real hardware needs.</p>
-            </details>
-          </div>
-        </article>
-        <article class="card">
-          <div class="thumb" data-full="project2-full.jpeg" tabindex="0" role="button" aria-label="Open project 2 full size"><img src="project2.jpeg" alt="" onerror="this.remove()"><span>Project 2 image</span></div>
-          <div class="body">
-            <h3>Water Dancing Prototype</h3>
-            <p>I built a miniature dancing water system, controlled by a digital controller, to help a village in Sampang bring modern technology into its farm-based eco-tourism.</p>
-            <div class="tags"><span>IoT</span><span>MBKM Project</span></div>
-            <details class="detail">
-              <summary>Detail</summary>
-              <p>During our community service program, our team of five worked with Sokobanah Daya village in Sampang, which wanted a unique, eco-friendly attraction to make its farming and livestock tourism more exciting for visitors. Since a river runs through the village, we proposed a dancing water show powered by a digital controller. We handled the build and testing: an Arduino Mega controlled DC water pumps through L298N motor drivers, and we measured the driver’s output voltage and the water height one pump at a time to get the water to move in the pattern we wanted. The pool was made of acrylic, cut precisely with a CNC machine and decorated with rocks and small trees, and we designed the layout and water patterns in CorelDRAW and Blender at a 1:10 scale. Along the way we had to deal with unstable driver output, synchronizing two microcontrollers, and the risk of leaks. When we handed it over to the DISPORA office, we also gave a presentation and a maintenance training, covering how to drain and refill the water safely, replace a pump, and how long to run and rest the system.</p>
-            </details>
-          </div>
-      </div>
+        <div class="slider-ctrl"><button type="button" data-dir="-1" aria-label="Previous">&#8592;</button><button type="button" data-dir="1" aria-label="Next">&#8594;</button></div>
+        <div class="slider" tabindex="0" aria-label="Projects">
+          <!-- Each project: thumbnail = projectN.jpeg, full size on click = projectN-full.jpeg (or a .pdf) -->
+          <article class="card">
+            <div class="thumb" data-full="project1-full.jpeg" tabindex="0" role="button" aria-label="Open project 1 full size"><img loading="lazy" src="project1.jpeg" alt="" onerror="this.remove()"><span>Project 1 image</span></div>
+            <div class="body">
+              <h3>Window Cleaning Robot</h3>
+              <p>A window cleaning robot that sticks to glass with vacuum suction and uses Coverage Path Planning to clean an entire surface automatically.</p>
+              <div class="tags"><span>IoT</span><span>Robotics</span><span>Final College Project</span></div>
+              <details class="detail">
+                <summary>Detail</summary>
+                <p>For my final year project, I wanted to solve a problem that is easy to overlook: cleaning windows on tall buildings is risky for the people who do it. So I built a robot that does the job for them. It sticks to the glass using vacuum suction and drives with a differential drive system on sponge crawler wheels, so it doesn’t slip. To make sure no part of the window gets missed, I used a grid-based Coverage Path Planning algorithm with a boustrophedon (zig-zag) pattern. Time-of-Flight (ToF) sensors help the robot sense the edges of the window and decide when to turn, an MPU6050 keeps track of its orientation, and wheel encoders measure how far it has moved. Everything is controlled by an Arduino Mega. I calibrated and tested each sensor and the suction mechanism again and again, and that process taught me how much patience real hardware needs.</p>
+              </details>
+            </div>
+          </article>
+          <article class="card">
+            <div class="thumb" data-full="project2-full.jpeg" tabindex="0" role="button" aria-label="Open project 2 full size"><img loading="lazy" src="project2.jpeg" alt="" onerror="this.remove()"><span>Project 2 image</span></div>
+            <div class="body">
+              <h3>Water Dancing Prototype</h3>
+              <p>I built a miniature dancing water system, controlled by a digital controller, to help a village in Sampang bring modern technology into its farm-based eco-tourism.</p>
+              <div class="tags"><span>IoT</span><span>MBKM Project</span></div>
+              <details class="detail">
+                <summary>Detail</summary>
+                <p>During our community service program, our team of five worked with Sokobanah Daya village in Sampang, which wanted a unique, eco-friendly attraction to make its farming and livestock tourism more exciting for visitors. Since a river runs through the village, we proposed a dancing water show powered by a digital controller. We handled the build and testing: an Arduino Mega controlled DC water pumps through L298N motor drivers, and we measured the driver’s output voltage and the water height one pump at a time to get the water to move in the pattern we wanted. The pool was made of acrylic, cut precisely with a CNC machine and decorated with rocks and small trees, and we designed the layout and water patterns in CorelDRAW and Blender at a 1:10 scale. Along the way we had to deal with unstable driver output, synchronizing two microcontrollers, and the risk of leaks. When we handed it over to the DISPORA office, we also gave a presentation and a maintenance training, covering how to drain and refill the water safely, replace a pump, and how long to run and rest the system.</p>
+              </details>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="Achievements and Certificates">
-      <h2>Certificates</h2>
+    <section id="certificates">
+      <h2>Achievements and Certificates</h2>
       <div class="slider-wrap">
-      <div class="slider-ctrl"><button type="button" data-dir="-1" aria-label="Previous">&#8592;</button><button type="button" data-dir="1" aria-label="Next">&#8594;</button></div>
-      <div class="slider" tabindex="0" aria-label="Certificates">
-        <!-- Replace image file names (cert1.jpeg ... cert5.jpeg) with your own scans -->
-        <article class="card">
-          <div class="thumb" data-full="cert1.pdf" tabindex="0" role="button" aria-label="Open certificate 1 full size"><img src="cert1.jpeg" alt="" onerror="this.remove()"><span>Certificate 1 image</span></div>
-          <div class="body"><h3>BNSP Competency Certificate</h3><p>Operation of PLC-Based Electronic Equipment · 2026</p></div>
-        </article>
-        <article class="card">
-          <div class="thumb" data-full="cert2.pdf" tabindex="0" role="button" aria-label="Open certificate 2 full size"><img src="cert2.jpeg" alt="" onerror="this.remove()"><span>Certificate 2 image</span></div>
-          <div class="body"><h3>Intern Certificate</h3><p>Technician Intern of Sitcomasia Academy · 2025</p></div>
-        </article>
-        <article class="card">
-          <div class="thumb" data-full="cert3.pdf" tabindex="0" role="button" aria-label="Open certificate 3 full size"><img src="cert3.jpeg" alt="" onerror="this.remove()"><span>Certificate 3 image</span></div>
-          <div class="body"><h3>Certificate of HKI</h3><p>In Making of Prototype Dancing Water Design and Source Code</p><p>MBKM Program· 2024</p></div>
-        </article>
-        <article class="card">
-          <div class="thumb" data-full="cert4.pdf" tabindex="0" role="button" aria-label="Open certificate 4 full size"><img src="cert4.jpeg" alt="" onerror="this.remove()"><span>Certificate 4 image</span></div>
-          <div class="body"><h3>Certiicate of Work Experience</h3><p>Published By PT. Sinergi Inti Pelangi Because of My Work Experience for 6 Months· 2026</p></div>
-        </article>
-        <article class="card">
-          <div class="thumb" data-full="cert5.pdf" tabindex="0" role="button" aria-label="Open certificate 5 full size"><img src="cert5.jpeg" alt="" onerror="this.remove()"><span>Certificate 5 image</span></div>
-          <div class="body"><h3>Certificate of Vice Chariman</h3><p>In Order for Becoming Vice Chairman in IKAMALA UTM · 2024-2025</p></div>
-        </article>
-        <article class="card">
-          <div class="thumb" data-full="cert6.pdf" tabindex="0" role="button" aria-label="Open certificate 6 full size"><img src="cert6.jpeg" alt="" onerror="this.remove()"><span>Certificate 6 image</span></div>
-          <div class="body"><h3>Intern Certificate</h3><p>College Internship in Pabrik Gula Lestari · 2024</p></div>
-        </article>
-      </div>
+        <div class="slider-ctrl"><button type="button" data-dir="-1" aria-label="Previous">&#8592;</button><button type="button" data-dir="1" aria-label="Next">&#8594;</button></div>
+        <div class="slider" tabindex="0" aria-label="Certificates">
+          <!-- Replace image file names (cert1.jpeg ... cert6.jpeg) with your own scans -->
+          <article class="card">
+            <div class="thumb" data-full="cert1.pdf" tabindex="0" role="button" aria-label="Open certificate 1 full size"><img loading="lazy" src="cert1.jpeg" alt="" onerror="this.remove()"><span>Certificate 1 image</span></div>
+            <div class="body"><h3>BNSP Competency Certificate</h3><p>Operation of PLC-Based Electronic Equipment · 2026</p></div>
+          </article>
+          <article class="card">
+            <div class="thumb" data-full="cert2.pdf" tabindex="0" role="button" aria-label="Open certificate 2 full size"><img loading="lazy" src="cert2.jpeg" alt="" onerror="this.remove()"><span>Certificate 2 image</span></div>
+            <div class="body"><h3>Intern Certificate</h3><p>Technician Intern of Sitcomasia Academy · 2025</p></div>
+          </article>
+          <article class="card">
+            <div class="thumb" data-full="cert3.pdf" tabindex="0" role="button" aria-label="Open certificate 3 full size"><img loading="lazy" src="cert3.jpeg" alt="" onerror="this.remove()"><span>Certificate 3 image</span></div>
+            <div class="body"><h3>Intellectual Property Certificate (HKI)</h3><p>Dancing Water prototype: design and source code · MBKM Program · 2024</p></div>
+          </article>
+          <article class="card">
+            <div class="thumb" data-full="cert4.pdf" tabindex="0" role="button" aria-label="Open certificate 4 full size"><img loading="lazy" src="cert4.jpeg" alt="" onerror="this.remove()"><span>Certificate 4 image</span></div>
+            <div class="body"><h3>Certificate of Work Experience</h3><p>Issued by PT. Sinergi Inti Pelangi for 6 months of work experience · 2026</p></div>
+          </article>
+          <article class="card">
+            <div class="thumb" data-full="cert5.pdf" tabindex="0" role="button" aria-label="Open certificate 5 full size"><img loading="lazy" src="cert5.jpeg" alt="" onerror="this.remove()"><span>Certificate 5 image</span></div>
+            <div class="body"><h3>Certificate of Vice Chairman</h3><p>Vice Chairman of IKAMALA UTM · 2024 – 2025</p></div>
+          </article>
+          <article class="card">
+            <div class="thumb" data-full="cert6.pdf" tabindex="0" role="button" aria-label="Open certificate 6 full size"><img loading="lazy" src="cert6.jpeg" alt="" onerror="this.remove()"><span>Certificate 6 image</span></div>
+            <div class="body"><h3>Intern Certificate</h3><p>College Internship in Pabrik Gula Lestari · 2024</p></div>
+          </article>
+        </div>
       </div>
     </section>
 
     <section id="skills">
       <h2>Skills</h2>
       <div class="skills">
-        <div class="skill-box"><h3>Automation &amp; Robotics</h3><ul><li>PLC Programming</li><li>Ladder Diagram</li><li>Wiring Diagram</li><li>Pneumatic and Hydraulics</li><li>IoT Projects</li><li>(C++) Programming</li></ul></div>
+        <div class="skill-box"><h3>Automation &amp; Robotics</h3><ul><li>PLC Programming</li><li>Ladder Diagram</li><li>Wiring Diagram</li><li>Pneumatics &amp; Hydraulics</li><li>IoT Projects</li><li>C++ Programming</li></ul></div>
         <div class="skill-box"><h3>Office</h3><ul><li>Microsoft Word</li><li>Microsoft Excel</li><li>Microsoft PowerPoint</li></ul></div>
         <div class="skill-box"><h3>CAD / Design</h3><ul><li>Autodesk Inventor</li><li>Basic 3D Modeling</li><li>Drafting</li></ul></div>
         <div class="skill-box"><h3>Soft Skills</h3><ul><li>Adaptive</li><li>Logical Thinking</li><li>Time Management</li><li>Communicative</li></ul></div>
-        <div class="skill-box"><h3>Languages</h3><ul><li>Indonesian (Native)</li><li>English (Intermediate) Base on TEAP Score : 473</li></ul></div>
+        <div class="skill-box"><h3>Languages</h3><ul><li>Indonesian (Native)</li><li>English (Intermediate, TEAP score 473)</li></ul></div>
       </div>
     </section>
 
@@ -397,58 +429,102 @@ Right now I’m looking for a job where I can put my skills to use and keep lear
     <span>© <script>document.write(new Date().getFullYear())</script> Muhammad Wahyu Aria Senna</span>
   </footer>
 </div>
-<script>
-document.querySelectorAll('.slider-wrap').forEach(function(w){
-  var sl=w.querySelector('.slider');
-  w.querySelectorAll('[data-dir]').forEach(function(b){
-    b.addEventListener('click',function(){
-      sl.scrollBy({left:b.dataset.dir*(sl.querySelector('.card').offsetWidth+20),behavior:'smooth'});
-    });
-  });
-});
-</script>
-<script>
-document.querySelectorAll('.copy').forEach(function(b){
-  b.addEventListener('click',function(){
-    var text=b.dataset.copy;
-    function ok(){
-      var old=b.textContent;
-      b.textContent='Copied';b.classList.add('done');
-      setTimeout(function(){b.textContent=old;b.classList.remove('done');},1600);
-    }
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(ok,function(){});
-    }else{
-      var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';
-      document.body.appendChild(t);t.select();
-      try{document.execCommand('copy');ok();}catch(e){}
-      document.body.removeChild(t);
-    }
-  });
-});
-</script>
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Full size preview">
-  <div class="lb-bar"><a id="lb-open" href="#" target="_blank" rel="noopener">Open in new tab</a><button type="button" id="lb-close">Close ✕</button></div>
+  <div class="lb-bar">
+    <a id="lb-open" href="#" target="_blank" rel="noopener">Open in new tab</a>
+    <button type="button" id="lb-close">Close ✕</button>
+  </div>
   <div class="lb-body" id="lb-body"></div>
 </div>
+
 <script>
-(function(){
-  var lb=document.getElementById('lb'),body=document.getElementById('lb-body'),open=document.getElementById('lb-open');
-  function show(src){
-    body.innerHTML='';
-    var el;
-    if(/\.pdf($|\?)/i.test(src)){el=document.createElement('iframe');el.src=src;el.title='PDF preview';}
-    else{el=document.createElement('img');el.src=src;el.alt='';el.onerror=function(){body.innerHTML='<p>File not found: '+src+'</p>';};}
-    body.appendChild(el);open.href=src;lb.classList.add('open');document.body.style.overflow='hidden';
-  }
-  function hide(){lb.classList.remove('open');body.innerHTML='';document.body.style.overflow='';}
-  document.querySelectorAll('.thumb[data-full]').forEach(function(t){
-    t.addEventListener('click',function(){show(t.dataset.full);});
-    t.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();show(t.dataset.full);}});
+(function () {
+  // Slider arrows (projects & certificates)
+  document.querySelectorAll('.slider-wrap').forEach(function (wrap) {
+    var slider = wrap.querySelector('.slider');
+    wrap.querySelectorAll('[data-dir]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var step = slider.querySelector('.card').offsetWidth + parseFloat(getComputedStyle(slider).columnGap || 20);
+        slider.scrollBy({ left: btn.dataset.dir * step, behavior: 'smooth' });
+      });
+    });
   });
-  document.getElementById('lb-close').addEventListener('click',hide);
-  lb.addEventListener('click',function(e){if(e.target===lb||e.target===body)hide();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')hide();});
+
+  // Highlight the current section in the top menu
+  var links = document.querySelectorAll('.nav nav a');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-35% 0px -60% 0px' });
+    links.forEach(function (a) {
+      var sec = document.querySelector(a.getAttribute('href'));
+      if (sec) io.observe(sec);
+    });
+  }
+
+  // Copy buttons (contact)
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      function ok() {
+        var old = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('done');
+        setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1600);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(btn.dataset.copy).then(ok, function () {});
+      } else {
+        var t = document.createElement('textarea');
+        t.value = btn.dataset.copy; t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy'); ok(); } catch (e) {}
+        document.body.removeChild(t);
+      }
+    });
+  });
+
+  // Lightbox (full-size image or PDF)
+  var lb = document.getElementById('lb'),
+      lbBody = document.getElementById('lb-body'),
+      lbOpen = document.getElementById('lb-open'),
+      lbClose = document.getElementById('lb-close'),
+      lastFocus = null;
+
+  function show(src, trigger) {
+    var el;
+    lastFocus = trigger;
+    lbBody.innerHTML = '';
+    if (/\.pdf($|\?)/i.test(src)) {
+      el = document.createElement('iframe'); el.src = src; el.title = 'PDF preview';
+    } else {
+      el = document.createElement('img'); el.src = src; el.alt = '';
+      el.onerror = function () { lbBody.innerHTML = '<p>File not found: ' + src + '</p>'; };
+    }
+    lbBody.appendChild(el);
+    lbOpen.href = src;
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  }
+  function hide() {
+    lb.classList.remove('open');
+    lbBody.innerHTML = '';
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+
+  document.querySelectorAll('.thumb[data-full]').forEach(function (t) {
+    t.addEventListener('click', function () { show(t.dataset.full, t); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(t.dataset.full, t); }
+    });
+  });
+  lbClose.addEventListener('click', hide);
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target === lbBody) hide(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('open')) hide(); });
 })();
 </script>
 </body>
